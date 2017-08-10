@@ -4,14 +4,15 @@ Created on 10 Aug 2017
 @author: neeraj.mahajan
 '''
 
-class CustomerController (object):
+from flask_restful import  Resource
+
+
+class CustomerController(Resource):
     '''
     classdocs
     '''
-
-
-    def __init__(self, params):
-        '''
-        Constructor
-        '''
-        
+    def test(self):
+        return "Hello Customer"
+    
+    def test2(self,name):
+        return "Hello " + name
