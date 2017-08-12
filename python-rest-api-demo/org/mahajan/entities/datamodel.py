@@ -19,7 +19,15 @@ class Customer(Base):
     password = Column(String(10))
 
     def __repr__(self):
-        return "<User(name='%s', fullname='%s', password='%s')>" % (
+        return "<Customer(name='%s', fullname='%s', password='%s')>" % (
                              self.name, self.fullname, self.password)
         
     
+
+    def serialize(self):
+        return{
+            "id":self.id,
+            "name":self.name,
+            "fullname":self.fullname,
+            "password":self.password
+            }

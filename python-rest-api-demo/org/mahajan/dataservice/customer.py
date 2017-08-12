@@ -23,18 +23,18 @@ class CustomerService(object):
         '''
         engine = create_engine('sqlite:///:memory:', echo=True)
 
-        Base.metadata.create_all(engine)
         Session = sessionmaker(bind=engine)
-                
+        Base.metadata.create_all(engine)
         self.session = Session()
     
     def addCustomer(self,customer):
-        print ("session value" , self.session)
         self.session.add(customer)
         self.session.commit()
+        customer = self.session.query(Customer).filter_by(name=customer.name).first()
+        return customer.id
     
     def getCustomer(self,customerId):
-        print ("Hi I am called with customerId" , customerId)
-        customer = self.session.query(Customer).filter_by(id=customerId) 
-        print ("customer##################")
+        customer = self.session.query(Customer).filter_by(id=customerId).first()
+        print ("customer##################", customer)
         return customer
+
