@@ -7,7 +7,7 @@ Created on 3 Oct 2017
 from flask.app import Flask
 from flask_restful import Api
 
-from resources.resource import UserHandler, AddressHandler
+from resources.resource import UserHandler, AddressHandler, CourseHandler, StudentHandler
 
 
 def main():
@@ -25,7 +25,9 @@ def main():
       
     api.add_resource(UserHandler, '/api/user','/api/user/<string:name>')
     api.add_resource(AddressHandler, '/api/address','/api/address/<string:id>')
-    
+    api.add_resource(CourseHandler, '/api/course','/api/course/<string:name>')
+    api.add_resource(StudentHandler, '/api/student','/api/student/<string:id>')
+
     from database.config import db
     db.init_app(app)
     app.run(debug=False)

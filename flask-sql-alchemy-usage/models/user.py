@@ -13,6 +13,7 @@ class UserModel(db.Model):
     username = db.Column(db.String(100))
     password = db.Column(db.String(100))
     address  = db.relationship('AddressModel',backref='user',lazy=True)
+    #backref is a simple way to also declare a new property 'user' on the AddressModel class. 
 
     def __init__(self,username,password):
         self.username = username
