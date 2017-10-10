@@ -4,6 +4,7 @@ Created on 3 Oct 2017
 @author: neeraj.mahajan
 '''
 from database.config import db
+from test import test_ipaddress
 
 
 class UserModel(db.Model):
@@ -11,13 +12,17 @@ class UserModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100))
     password = db.Column(db.String(100))
-    address  = db.relationship('AddressModel',backref='user',uselist=False,lazy=True)
+    address  = db.relationship('AddressModel',backref='user',lazy=True)
 
     def __init__(self,username,password):
         self.username = username
         self.password = password
+        
+    def add_address(self,address):
+        self.address.append(address)
+        
     def json(self):
-        return {"id":self.id,"username":self.username,"password":self.password,"address":self.address.json()}
+        return {"id":self.id,"username":self.username,"password":self.password,"addresses":[addr.json() for addr in self.address ]}
     
     @classmethod  
     def find_by_username(cls,username):

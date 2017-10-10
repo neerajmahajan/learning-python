@@ -21,8 +21,12 @@ class UserHandler(Resource):
         request_data = request.get_json()
         username = request_data["username"]
         password = request_data["password"]
-        user_id = UserModel(username=username,password=password).save_to_db()
-        return {"user_id": user_id}
+        new_user = UserModel(username=username,password=password)
+        address1 = AddressModel(county="Cornwall",user_id=None)
+        address2 = AddressModel(county="Hampshire",user_id=None)
+        new_user.add_address(address1)
+        new_user.add_address(address2)
+        return {"user_id": new_user.save_to_db()}
       
 class AddressHandler(Resource):
     '''
